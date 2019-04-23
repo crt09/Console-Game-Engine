@@ -46,15 +46,11 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 
 		/// <inheritdoc />
 		protected override void Update() {
-			if (Scene == null)
-				return;
 			Scene.Update();
 		}
 
 		/// <inheritdoc />
 		protected sealed override void Draw() {
-			if (Scene == null)
-				return;
 			Graphics.Clear(Scene.ClearSymbol);
 			Scene.Draw();
 		}

@@ -2,7 +2,9 @@
 using ConsoleGameEngine.Core.Graphics;
 using ConsoleGameEngine.Core.Time;
 using System;
+using System.Diagnostics;
 using System.Text;
+using System.Timers;
 
 namespace ConsoleGameEngine.Core {
 
@@ -85,9 +87,8 @@ namespace ConsoleGameEngine.Core {
 		private int previousDeltaMilliseconds;
 		private int deltaMilliseconds;
 		private int deltaAccumulatorMilliseconds;
-#if DEBUG
 		private readonly Timer debugTimer;
-#endif
+
 		#endregion
 
 		#region Class actions
@@ -106,11 +107,11 @@ namespace ConsoleGameEngine.Core {
 			Graphics = new Renderer();
 
 			previousDeltaMilliseconds = GetCurrentTimeMilliseconds();
-#if DEBUG
-			debugTimer = new Timer(100);
-			debugTimer.Elapsed += this.DebugTimerElapsed;
-			debugTimer.Start();
-#endif
+			if (Debugger.IsAttached) {
+				debugTimer = new Timer(100);
+				debugTimer.Elapsed += this.DebugTimerElapsed;
+				debugTimer.Start();
+			}
 		}
 
 		public void Dispose() {
@@ -158,12 +159,12 @@ namespace ConsoleGameEngine.Core {
 		/// <summary>
 		/// Stop game lyfecycle and cleanup game resources.
 		/// </summary>
-		public void Exit() {
-#if DEBUG
-			debugTimer.Stop();
-#endif
+		public void Exit() {			
 			GameRunning = false;
 			Console.Clear();
+			if (Debugger.IsAttached) {
+				debugTimer.Stop();
+			}
 		}
 
 		#endregion
@@ -205,14 +206,12 @@ namespace ConsoleGameEngine.Core {
 			return (int)DateTimeOffset.Now.ToUnixTimeMilliseconds();
 		}
 
-#if DEBUG
 		private void DebugTimerElapsed(object sender, ElapsedEventArgs e) {
 			var elapsed = DeltaTime.Elapsed.Milliseconds;
 			if (elapsed != 0) {
 				Console.Title = $"{this.Title} - FPS: {1000 / elapsed}";
 			}
 		}
-#endif
 
 		#endregion
 	}
