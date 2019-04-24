@@ -1,11 +1,11 @@
 # Console-Game-Engine
-The simple lightweight 2D framework to make games in console easier
+The simple lightweight 2D framework to make console games easier
 ## Getting started
-### Installing
+### Installation
 * Create a `Console App (.NET Framework)` project in your IDE
 * [Download](https://github.com/crt09/Console-Game-Engine/releases) or compile the Console-Game-Engine repository
 * Add references to `WindowsBase.dll` and `ConsoleGameEngine.dll`
-### Creating a game
+### Game creation
 * Create main game class and inherit it from the **GameCore**:
 ```cs
 using ConsoleGameEngine.Core.GameSystems.DefaultSystem;
@@ -20,7 +20,7 @@ class Game1 : GameCore {
   public Game1 : base(width: 32, height: 32, name: "Game1") { }
 }
 ```
-* Run game in the Program.cs:
+* Run the game from **Program.cs**:
 ```cs
 class Program {
   [STAThread] // It's important
@@ -33,7 +33,7 @@ class Program {
 ```
 ## Examples
 ### Default game system
-Default system is a MonoGame-like game system
+The default system is a MonoGame-like game system
 ```cs
 using ConsoleGameEngine.Core.GameSystems.DefaultSystem;
 
@@ -74,7 +74,7 @@ class Game1 : GameCore {
 }
 ```
 ### ECS game system
-ECS (Entity-Component-System) is an extended Scene/Entity/Component system
+The ECS (Entity-Component-System) is an extended game system with greater flexibility
 ```cs
 using ConsoleGameEngine.Core.GameSystems.ECS;
 
