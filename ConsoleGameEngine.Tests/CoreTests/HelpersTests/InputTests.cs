@@ -1,4 +1,4 @@
-﻿using ConsoleGameEngine.Core.Helpers;
+﻿using ConsoleGameEngine.Core.GameInput;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows.Input;
 

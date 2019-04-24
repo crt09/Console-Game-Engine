@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Core\Exceptions\MultipleAdditionException.cs" />
     <Compile Include="Core\Exceptions\MultipleBaseException.cs" />
+    <Compile Include="Core\GameInput\KeyboardState.cs" />
     <Compile Include="Core\GameSystems\ECS\Component.cs" />
     <Compile Include="Core\GameSystems\ECS\DrawableComponent.cs" />
     <Compile Include="Core\GameSystems\ECS\Graphics\SpriteText.cs" />
@@ -68,7 +69,7 @@
     <Compile Include="Core\Graphics\ConsoleTexture.cs" />
     <Compile Include="Core\Graphics\Point.cs" />
     <Compile Include="Core\Graphics\Rectangle.cs" />
-    <Compile Include="Core\Helpers\Input.cs" />
+    <Compile Include="Core\GameInput\Input.cs" />
     <Compile Include="Core\Graphics\Renderer.cs" />
     <Compile Include="Core\GameSystems\DefaultSystem\DrawableGameComponent.cs" />
     <Compile Include="Core\Game.cs" />

@@ -1,4 +1,5 @@
 ﻿using ConsoleGameEngine.Core.Exceptions;
+using ConsoleGameEngine.Core.GameInput;
 using ConsoleGameEngine.Core.Graphics;
 using ConsoleGameEngine.Core.Time;
 using System;
@@ -9,7 +10,7 @@ using System.Timers;
 namespace ConsoleGameEngine.Core {
 
 	/// <summary>
-	/// The main game-engine core.
+	/// The main game engine core.
 	/// Contains initialization, updating and drawing logic.
 	/// </summary>
 	public class Game : IDisposable {
@@ -33,24 +34,24 @@ namespace ConsoleGameEngine.Core {
 		public string Title {
 			get => title;
 			set {
-				title = value ?? throw new NullReferenceException(nameof(value));
+				title = value ?? throw new NullReferenceException();
 				Console.Title = value;
 			}
 		}
 		private string title;
 
 		/// <summary>
-		/// Game cycle rate. Using only for Update calls.
+		/// Game lifecycle rate. Using only for Update calls.
 		/// </summary>
 		public int Fps { get; set; } = 60;
 
 		/// <summary>
-		/// Game running state. Sets to true automatically, when game starts.
+		/// Game running state. Sets to true automatically, when the game starts.
 		/// </summary>
 		public bool GameRunning { get; private set; }
 
 		/// <summary>
-		/// Game matrix size in symbols. Unite game matrix width and height.
+		/// Game matrix size in symbols. Unites game matrix width and height.
 		/// </summary>
 		public Rectangle Bounds {
 			get => new Rectangle(0, 0, Width, Height);
@@ -63,7 +64,7 @@ namespace ConsoleGameEngine.Core {
 		internal char[,] Matrix;
 
 		/// <summary>
-		/// Main game renderer. Using for draw elements on game matrix.
+		/// The main game renderer. Using for elements drawing on the game matrix.
 		/// </summary>
 		/// <exception cref="MultipleBaseException">Thrown when renderer is already a part of another game</exception>
 		public Renderer Graphics {
@@ -147,6 +148,7 @@ namespace ConsoleGameEngine.Core {
 					DeltaTime.Elapsed = new ElapsedTime(GetCurrentTimeMilliseconds() - previousUpdateDeltaMilliseconds);
 					previousUpdateDeltaMilliseconds = GetCurrentTimeMilliseconds();
 
+					Input.Update();
 					this.Update();
 					this.UpdateConsoleWindowSize();
 				}
@@ -159,7 +161,7 @@ namespace ConsoleGameEngine.Core {
 		/// <summary>
 		/// Stop game lyfecycle and cleanup game resources.
 		/// </summary>
-		public void Exit() {			
+		public void Exit() {
 			GameRunning = false;
 			Console.Clear();
 			if (Debugger.IsAttached) {
