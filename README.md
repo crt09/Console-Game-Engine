@@ -7,10 +7,10 @@ The simple lightweight 2D framework to make games in console easier
 * Add references to `WindowsBase.dll` and `ConsoleGameEngine.dll`
 ### Creating a game
 * Create main game class and inherit it from the **GameCore**:
-```
-using ConsoleGameEngine.Core.GameSystems.DefaultSystem
+```cs
+using ConsoleGameEngine.Core.GameSystems.DefaultSystem;
 or
-using ConsoleGameEngine.Core.GameSystems.ECS
+using ConsoleGameEngine.Core.GameSystems.ECS;
 
 // Note: see the examples below for understanding the game systems
 
@@ -21,7 +21,7 @@ class Game1 : GameCore {
 }
 ```
 * Run game in the Program.cs:
-```
+```cs
 class Program {
   [STAThread] // It's important
   static void Main(string[] args) {
@@ -34,8 +34,8 @@ class Program {
 ## Examples
 ### Default game system
 Default system is a MonoGame-like game system
-```
-using ConsoleGameEngine.Core.GameSystems.DefaultSystem
+```cs
+using ConsoleGameEngine.Core.GameSystems.DefaultSystem;
 
 ...
 
@@ -75,8 +75,8 @@ class Game1 : GameCore {
 ```
 ### ECS game system
 ECS (Entity-Component-System) is an extended Scene/Entity/Component system
-```
-using ConsoleGameEngine.Core.GameSystems.ECS
+```cs
+using ConsoleGameEngine.Core.GameSystems.ECS;
 
 ...
 
