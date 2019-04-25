@@ -38,12 +38,12 @@ namespace ConsoleGameEngine.Core.Graphics {
 		public ConsoleTexture(string data) {
 			this.SetData(data);
 			this.UpdateSize();
-		}		
+		}
 
 		/// <summary>
 		/// Set the texture data as matrix of symbols.
 		/// </summary>
-		/// <param name="matrix">Matrix of symbols to set</param>
+		/// <param name="data">Matrix of symbols to set</param>
 		public void SetData(char[,] data) {
 			this.matrix = data;
 		}
