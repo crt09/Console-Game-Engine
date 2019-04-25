@@ -51,8 +51,7 @@ class Game1 : GameCore {
         "###",
         "# #"
       };
-      playerTexture = new ConsoleTexture(3, 3);
-      playerTexture.SetData(textureData);
+      playerTexture = new ConsoleTexture(textureData);
       playerTexture.Normalize();
       base.Initialize();
     }
@@ -91,8 +90,7 @@ class Game1 : GameCore {
         "###",
         "# #"
       };
-      var playerTexture = new ConsoleTexture(3, 3);
-      playerTexture.SetData(textureData);
+      var playerTexture = new ConsoleTexture(textureData);
       playerTexture.Normalize();
       var playerSprite = new Sprite(playerTexture);
 
