@@ -115,12 +115,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		/// <typeparam name="TEntity">Entity type to get</typeparam>
 		/// <returns>Enity of the specified type if found, otherwise null</returns>
 		public TEntity GetEntity<TEntity>() where TEntity : Entity {
-			foreach (var entity in this.entities) {
-				if (entity is TEntity tEntity) {
-					return tEntity;
-				}
-			}
-			return null;
+			return entities.FirstOrDefault(item => item is TEntity) as TEntity;
 		}
 
 		/// <summary>

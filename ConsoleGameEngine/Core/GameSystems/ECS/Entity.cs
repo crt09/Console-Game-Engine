@@ -116,12 +116,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		/// </summary>
 		/// <returns>Component of the specified type if found, otherwise null</returns>
 		public TComponent GetComponent<TComponent>() where TComponent : Component {
-			foreach (var component in this.components) {
-				if (component is TComponent tComponent) {
-					return tComponent;
-				}
-			}
-			return null;
+			return components.FirstOrDefault(item => item is TComponent) as TComponent;
 		}
 
 		/// <summary>
