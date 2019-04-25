@@ -21,17 +21,31 @@ namespace ConsoleGameEngine.Core.Graphics {
 		private char[,] matrix;
 
 		public ConsoleTexture(int width, int height) {
-			this.Width = width;
-			this.Height = height;
 			this.matrix = new char[height, width];
+			this.UpdateSize();
 		}
+
+		public ConsoleTexture(char[,] data) {
+			this.SetData(data);
+			this.UpdateSize();
+		}
+
+		public ConsoleTexture(string[] data) {
+			this.SetData(data);
+			this.UpdateSize();
+		}
+
+		public ConsoleTexture(string data) {
+			this.SetData(data);
+			this.UpdateSize();
+		}		
 
 		/// <summary>
 		/// Set the texture data as matrix of symbols.
 		/// </summary>
 		/// <param name="matrix">Matrix of symbols to set</param>
-		public void SetData(char[,] matrix) {
-			this.matrix = matrix;
+		public void SetData(char[,] data) {
+			this.matrix = data;
 		}
 
 		/// <summary>
@@ -80,6 +94,11 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// <returns>Matrix of symbols</returns>
 		public char[,] GetData() {
 			return this.matrix;
+		}
+
+		private void UpdateSize() {
+			this.Width = this.matrix.GetLength(1);
+			this.Height = this.matrix.GetLength(0);
 		}
 	}
 }

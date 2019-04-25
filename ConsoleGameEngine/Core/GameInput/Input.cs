@@ -8,6 +8,7 @@ namespace ConsoleGameEngine.Core.GameInput {
 	/// class from System.Windows.Input and requires for the WindowsBase reference.
 	/// </summary>	
 	public static class Input {
+
 		private static readonly KeyboardState currentKeyboardState;
 		private static KeyboardState previousKeyboardState;
 
