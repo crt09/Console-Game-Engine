@@ -17,7 +17,10 @@ namespace ConsoleGameEngine.Core.Graphics {
 			string buffer = string.Empty;
 			for (int y = 0; y < Game.Height; y++) {
 				for (int x = 0; x < Game.Width; x++) {
-					buffer += $"{Game.Matrix[x, y]} ";
+					buffer += Game.Matrix[x, y];
+					if (Game.DrawSpaces) {
+						buffer += ' ';
+					}
 				}
 				buffer += '\n';
 			}

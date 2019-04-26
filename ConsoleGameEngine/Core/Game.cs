@@ -46,6 +46,11 @@ namespace ConsoleGameEngine.Core {
 		public int Fps { get; set; } = 60;
 
 		/// <summary>
+		/// Draw space after the each symbol by X axis on the game matrix.
+		/// </summary>
+		public bool DrawSpaces { get; set; } = true;
+
+		/// <summary>
 		/// Game running state. Sets to true automatically, when the game starts.
 		/// </summary>
 		public bool GameRunning { get; private set; }
@@ -196,11 +201,14 @@ namespace ConsoleGameEngine.Core {
 		#region Additional private methods
 
 		private void UpdateConsoleWindowSize() {
-			if (Console.WindowWidth != this.Width * 2 + 1) {
-				Console.WindowWidth = this.Width * 2 + 1;
+			int targetWidth = this.DrawSpaces ? this.Width * 2 + 1 : this.Width + 1;
+			if (Console.WindowWidth != targetWidth) {
+				Console.WindowWidth = targetWidth;
 			}
-			if (Console.WindowHeight != this.Height + 1) {
-				Console.WindowHeight = this.Height + 1;
+
+			int targetHeight = this.Height + 1;
+			if (Console.WindowHeight != targetHeight) {
+				Console.WindowHeight = targetHeight;
 			}
 		}
 
