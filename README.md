@@ -53,21 +53,25 @@ class Game1 : GameCore {
       };
       playerTexture = new ConsoleTexture(textureData);
       playerTexture.Normalize();
+      
       base.Initialize();
     }
 
     protected override void Update() {
       if (Input.IsKeyDown(Key.Right)) {
         playerPosition.X++;
-      } else if (Input.IsKeyDown(Key.Left)) {
+      }
+      if (Input.IsKeyDown(Key.Left)) {
         playerPosition.X--;
       }				
+      
       base.Update();
     }
 
     protected override void Draw() {
       Graphics.Clear(' ');
       Graphics.Draw(playerTexture, playerPosition);
+      
       base.Draw();
     }
 }
@@ -85,6 +89,9 @@ class Game1 : GameCore {
     Entity player;
 
     protected override void Initialize() {
+      player = new Entity();
+      Scene.AddEntity(player);
+      
       string[] textureData = new[] {
         " # ",
         "###",
@@ -92,11 +99,8 @@ class Game1 : GameCore {
       };
       var playerTexture = new ConsoleTexture(textureData);
       playerTexture.Normalize();
-      var playerSprite = new Sprite(playerTexture);
-
-      player = new Entity();
-      player.AddComponent(playerSprite);
-      Scene.AddEntity(player);
+      var playerSprite = new Sprite(playerTexture);      
+      player.AddComponent(playerSprite);      
 
       base.Initialize();
     }
@@ -104,9 +108,11 @@ class Game1 : GameCore {
     protected override void Update() {
       if (Input.IsKeyDown(Key.Right)) {
         player.Transform.Position += new Point(1, 0);
-      } else if (Input.IsKeyDown(Key.Left)) {
+      }
+      if (Input.IsKeyDown(Key.Left)) {
         player.Transform.Position += new Point(-1, 0);
       }
+      
       base.Update();
     }
 }
