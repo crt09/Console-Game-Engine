@@ -41,9 +41,9 @@ namespace ConsoleGameEngine.Core {
 		private string title;
 
 		/// <summary>
-		/// Game lifecycle rate. Using only for Update calls.
+		/// Game lifecycle frame rate. Using only for Update calls.
 		/// </summary>
-		public int Fps { get; set; } = 60;
+		public int TargetFrameRate { get; set; } = 60;
 
 		/// <summary>
 		/// Draw space after the each symbol by X axis on the game matrix.
@@ -93,7 +93,9 @@ namespace ConsoleGameEngine.Core {
 		private int previousDeltaMilliseconds;
 		private int deltaMilliseconds;
 		private int deltaAccumulatorMilliseconds;
+
 		private readonly Timer debugTimer;
+		private int debugFramesCounter;
 
 		#endregion
 
@@ -114,7 +116,7 @@ namespace ConsoleGameEngine.Core {
 
 			previousDeltaMilliseconds = GetCurrentTimeMilliseconds();
 			if (Debugger.IsAttached) {
-				debugTimer = new Timer(100);
+				debugTimer = new Timer(1000);
 				debugTimer.Elapsed += this.DebugTimerElapsed;
 				debugTimer.Start();
 			}
@@ -144,8 +146,8 @@ namespace ConsoleGameEngine.Core {
 				deltaAccumulatorMilliseconds += deltaMilliseconds;
 
 				// run game update at the same rate as fps
-				while (deltaAccumulatorMilliseconds > (1000 / this.Fps)) {
-					deltaAccumulatorMilliseconds -= 1000 / this.Fps;
+				while (deltaAccumulatorMilliseconds > (1000 / this.TargetFrameRate)) {
+					deltaAccumulatorMilliseconds -= 1000 / this.TargetFrameRate;
 					if (deltaAccumulatorMilliseconds < 0)
 						deltaAccumulatorMilliseconds = 0;
 
@@ -156,6 +158,10 @@ namespace ConsoleGameEngine.Core {
 					Input.Update();
 					this.Update();
 					this.UpdateConsoleWindowSize();
+
+					if (Debugger.IsAttached) {
+						debugFramesCounter++;
+					}
 				}
 
 				this.Draw();
@@ -217,10 +223,8 @@ namespace ConsoleGameEngine.Core {
 		}
 
 		private void DebugTimerElapsed(object sender, ElapsedEventArgs e) {
-			var elapsed = DeltaTime.Elapsed.Milliseconds;
-			if (elapsed != 0) {
-				Console.Title = $"{this.Title} - FPS: {1000 / elapsed}";
-			}
+			Console.Title = $"{this.Title} - FPS: {debugFramesCounter}";
+			debugFramesCounter = 0;
 		}
 
 		#endregion
