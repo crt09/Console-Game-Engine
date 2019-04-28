@@ -1,11 +1,11 @@
 # Console-Game-Engine
 The simple lightweight 2D framework to make console games easier
 ## Getting started
-### Installation
+### Install
 * Create a `Console App (.NET Framework)` project in your IDE
 * [Download](https://github.com/crt09/Console-Game-Engine/releases) or compile the Console-Game-Engine repository
 * Add references to `WindowsBase.dll` and `ConsoleGameEngine.dll`
-### Game creation
+### First step
 * Create main game class and inherit it from the **GameCore**:
 ```cs
 using ConsoleGameEngine.Core.GameSystems.DefaultSystem;
