@@ -12,13 +12,18 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// </summary>
 		public Game Game { get; internal set; }
 
+		/// <summary>
+		/// Draw space after the each symbol by X axis on the game matrix.
+		/// </summary>
+		public bool DrawSpaces { get; set; } = true;
+
 		internal void RenderMatrix() {
 			Console.SetCursorPosition(0, 0);
 			string buffer = string.Empty;
 			for (int y = 0; y < Game.Height; y++) {
 				for (int x = 0; x < Game.Width; x++) {
 					buffer += Game.Matrix[x, y];
-					if (Game.DrawSpaces) {
+					if (this.DrawSpaces) {
 						buffer += ' ';
 					}
 				}

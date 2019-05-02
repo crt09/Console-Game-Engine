@@ -43,12 +43,7 @@ namespace ConsoleGameEngine.Core {
 		/// <summary>
 		/// Game lifecycle frame rate. Using only for Update calls.
 		/// </summary>
-		public int TargetFrameRate { get; set; } = 60;
-
-		/// <summary>
-		/// Draw space after the each symbol by X axis on the game matrix.
-		/// </summary>
-		public bool DrawSpaces { get; set; } = true;
+		public int TargetFrameRate { get; set; } = 60;		
 
 		/// <summary>
 		/// Game running state. Sets to true automatically, when the game starts.
@@ -207,7 +202,7 @@ namespace ConsoleGameEngine.Core {
 		#region Additional private methods
 
 		private void UpdateConsoleWindowSize() {
-			int targetWidth = this.DrawSpaces ? this.Width * 2 + 1 : this.Width + 1;
+			int targetWidth = (Graphics.DrawSpaces ? this.Width * 2 : this.Width) + 1;
 			if (Console.WindowWidth != targetWidth) {
 				Console.WindowWidth = targetWidth;
 			}
