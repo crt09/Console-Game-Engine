@@ -43,7 +43,7 @@ namespace ConsoleGameEngine.Core {
 		/// <summary>
 		/// Game lifecycle frame rate. Using only for Update calls.
 		/// </summary>
-		public int TargetFrameRate { get; set; } = 60;		
+		public int TargetFrameRate { get; set; } = 60;
 
 		/// <summary>
 		/// Game running state. Sets to true automatically, when the game starts.
@@ -84,10 +84,10 @@ namespace ConsoleGameEngine.Core {
 
 		#region Private fields
 
-		private int previousUpdateDeltaMilliseconds;
-		private int previousDeltaMilliseconds;
-		private int deltaMilliseconds;
-		private int deltaAccumulatorMilliseconds;
+		private int previousUpdateDeltaTime;
+		private int previousDeltaTime;
+		private int deltaTime;
+		private int deltaTimeAccumulator;
 
 		private readonly Timer debugTimer;
 		private int debugFramesCounter;
@@ -109,10 +109,11 @@ namespace ConsoleGameEngine.Core {
 			Matrix = new char[width, height];
 			Graphics = new Renderer();
 
-			previousDeltaMilliseconds = GetCurrentTimeMilliseconds();
+			previousDeltaTime = GetCurrentTimeMilliseconds();
 			if (Debugger.IsAttached) {
 				debugTimer = new Timer(1000);
 				debugTimer.Elapsed += this.DebugTimerElapsed;
+				this.DebugTimerTick();
 				debugTimer.Start();
 			}
 		}
@@ -135,24 +136,26 @@ namespace ConsoleGameEngine.Core {
 
 			while (GameRunning) {
 				// calculate delta time
-				deltaMilliseconds = GetCurrentTimeMilliseconds() - previousDeltaMilliseconds;
-				previousDeltaMilliseconds = GetCurrentTimeMilliseconds();
+				int currentTime = GetCurrentTimeMilliseconds();
+				deltaTime = currentTime - previousDeltaTime;
+				previousDeltaTime = currentTime;
 				// accumulate total time
-				deltaAccumulatorMilliseconds += deltaMilliseconds;
+				deltaTimeAccumulator += deltaTime;
 
 				// run game update at the same rate as fps
-				while (deltaAccumulatorMilliseconds > (1000 / this.TargetFrameRate)) {
-					deltaAccumulatorMilliseconds -= 1000 / this.TargetFrameRate;
-					if (deltaAccumulatorMilliseconds < 0)
-						deltaAccumulatorMilliseconds = 0;
+				int targetDelay = 1000 / this.TargetFrameRate;
+				while (deltaTimeAccumulator > targetDelay) {
+					deltaTimeAccumulator -= targetDelay;
+					if (deltaTimeAccumulator < 0)
+						deltaTimeAccumulator = 0;
 
 					// calculate udpate delta time
-					DeltaTime.Elapsed = new ElapsedTime(GetCurrentTimeMilliseconds() - previousUpdateDeltaMilliseconds);
-					previousUpdateDeltaMilliseconds = GetCurrentTimeMilliseconds();
+					DeltaTime.Elapsed = new ElapsedTime(currentTime - previousUpdateDeltaTime);
+					previousUpdateDeltaTime = currentTime;
 
 					Input.Update();
 					this.Update();
-					this.UpdateConsoleWindowSize();
+					this.TrimConsoleWindow();
 
 					if (Debugger.IsAttached) {
 						debugFramesCounter++;
@@ -201,7 +204,7 @@ namespace ConsoleGameEngine.Core {
 
 		#region Additional private methods
 
-		private void UpdateConsoleWindowSize() {
+		private void TrimConsoleWindow() {
 			int targetWidth = (Graphics.DrawSpaces ? this.Width * 2 : this.Width) + 1;
 			if (Console.WindowWidth != targetWidth) {
 				Console.WindowWidth = targetWidth;
@@ -218,7 +221,11 @@ namespace ConsoleGameEngine.Core {
 		}
 
 		private void DebugTimerElapsed(object sender, ElapsedEventArgs e) {
-			Console.Title = $"{this.Title} - FPS: {debugFramesCounter}";
+			this.DebugTimerTick();
+		}
+
+		private void DebugTimerTick() {
+			Console.Title = $"{this.Title} - FPS: {debugFramesCounter} - DeltaTime.Milliseconds: {DeltaTime.Elapsed.Milliseconds}";
 			debugFramesCounter = 0;
 		}
 
