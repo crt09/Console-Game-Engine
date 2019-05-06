@@ -84,8 +84,8 @@ namespace ConsoleGameEngine.Core {
 
 		#region Private fields
 
-		private int previousUpdateDeltaTime;
-		private int previousDeltaTime;
+		private int previousUpdateTime;
+		private int previousTime;
 		private int deltaTime;
 		private int deltaTimeAccumulator;
 
@@ -109,7 +109,7 @@ namespace ConsoleGameEngine.Core {
 			Matrix = new char[width, height];
 			Graphics = new Renderer();
 
-			previousDeltaTime = GetCurrentTimeMilliseconds();
+			previousTime = GetCurrentTimeMilliseconds();
 			if (Debugger.IsAttached) {
 				debugTimer = new Timer(1000);
 				debugTimer.Elapsed += this.DebugTimerElapsed;
@@ -137,8 +137,8 @@ namespace ConsoleGameEngine.Core {
 			while (GameRunning) {
 				// calculate delta time
 				int currentTime = GetCurrentTimeMilliseconds();
-				deltaTime = currentTime - previousDeltaTime;
-				previousDeltaTime = currentTime;
+				deltaTime = currentTime - previousTime;
+				previousTime = currentTime;
 				// accumulate total time
 				deltaTimeAccumulator += deltaTime;
 
@@ -150,8 +150,12 @@ namespace ConsoleGameEngine.Core {
 						deltaTimeAccumulator = 0;
 
 					// calculate udpate delta time
-					DeltaTime.Elapsed = new ElapsedTime(currentTime - previousUpdateDeltaTime);
-					previousUpdateDeltaTime = currentTime;
+					int currentUpdateTime = GetCurrentTimeMilliseconds();
+					int updateDeltaTime = currentUpdateTime - previousUpdateTime;
+					if (updateDeltaTime > 0) {
+						DeltaTime.Elapsed = new ElapsedTime(updateDeltaTime);
+					}
+					previousUpdateTime = currentUpdateTime;
 
 					Input.Update();
 					this.Update();
