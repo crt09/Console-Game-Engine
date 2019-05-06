@@ -21,6 +21,13 @@
 			this.Height = height;
 		}
 
+		public Rectangle(Point position, Point size) {
+			this.X = position.X;
+			this.Y = position.Y;
+			this.Width = size.X;
+			this.Height = size.Y;
+		}
+
 		/// <summary>
 		/// Returns Rectangle(0, 0, 0, 0).
 		/// </summary>
