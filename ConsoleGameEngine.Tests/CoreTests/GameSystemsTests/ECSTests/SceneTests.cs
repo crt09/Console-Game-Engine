@@ -17,7 +17,7 @@ namespace ConsoleGameEngine.Tests.CoreTests.GameSystemsTests.ECSTests {
 		public void ProperiesNull() {
 			Assert.IsNull(scene.Game);
 			Assert.IsNotNull(scene.Camera);
-			Assert.IsNull(scene.Camera.Game);
+			Assert.IsNotNull(scene.Camera.Scene);
 		}
 
 		[TestMethod]

@@ -14,6 +14,11 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		public int DrawOrder { get; set; }
 
 		/// <summary>
+		/// Visibility of the component. If false, component will not be drawn.
+		/// </summary>
+		public bool Visible { get; set; } = true;
+
+		/// <summary>
 		/// Component absolute position relative to the camera.
 		/// </summary>
 		public Point ScreenPosition {

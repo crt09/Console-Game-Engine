@@ -54,7 +54,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 
 		internal void Draw() {
 			var componentsBuffer = this.components
-				.Where(item => item is DrawableComponent)
+				.Where(item => item is DrawableComponent drawableItem && drawableItem.Visible)
 				.Cast<DrawableComponent>()
 				.OrderBy(item => item.DrawOrder)
 				.ToList();

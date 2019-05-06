@@ -19,17 +19,20 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		/// <summary>
 		/// Scene camera. Instantiated only in ctor and can't be reinitialized.
 		/// </summary>
-		public Camera Camera { get; internal set; }
+		public Camera Camera { get; }
 
-		internal char ClearSymbol;
+		/// <summary>
+		/// Symbol to clear the game screen
+		/// </summary>
+		public char ClearSymbol { get; set; }
 
 		private readonly List<Entity> entities;
 
-		/// <param name="clearSymbol">Symbol to clear game screen</param>
+		/// <param name="clearSymbol">Symbol to clear game the screen</param>
 		public Scene(char clearSymbol = ' ') {
 			this.ClearSymbol = clearSymbol;
 			entities = new List<Entity>();
-			this.Camera = new Camera();
+			this.Camera = new Camera(this);
 		}
 
 		/// <summary>

@@ -28,11 +28,9 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 				if (value.Game != null && value.Game != this)
 					throw new MultipleBaseException(value.ToString(), this.ToString());
 				value.Game = this;
-				value.Camera.Game = this;
 				value.Initialize();
 				if (scene != null) {
 					scene.Game = null;
-					scene.Camera.Game = null;
 				}
 				scene = value;
 			}

@@ -9,12 +9,12 @@ namespace ConsoleGameEngine.Tests.CoreTests.GameSystemsTests.ECSTests.Transforma
 
 		[TestInitialize]
 		public void Initialize() {
-			camera = new Camera();
+			camera = new Camera(null);
 		}
 
 		[TestMethod]
 		public void GameNull() {
-			Assert.IsNull(camera.Game);
+			Assert.IsNull(camera.Scene);
 		}
 
 		[TestMethod]

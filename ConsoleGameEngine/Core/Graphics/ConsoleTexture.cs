@@ -11,33 +11,33 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// <summary>
 		/// Texture matrix width in symbols.
 		/// </summary>
-		public int Width { get; set; }
+		public int Width {
+			get => matrix.GetLength(0);
+		}
 
 		/// <summary>
 		/// Texture matrix height in symbols.
 		/// </summary>
-		public int Height { get; set; }
+		public int Height {
+			get => matrix.GetLength(1);
+		}
 
 		private char[,] matrix;
 
 		public ConsoleTexture(int width, int height) {
 			this.matrix = new char[height, width];
-			this.UpdateSize();
 		}
 
 		public ConsoleTexture(char[,] data) {
 			this.SetData(data);
-			this.UpdateSize();
 		}
 
 		public ConsoleTexture(string[] data) {
 			this.SetData(data);
-			this.UpdateSize();
 		}
 
 		public ConsoleTexture(string data) {
 			this.SetData(data);
-			this.UpdateSize();
 		}
 
 		/// <summary>
@@ -79,13 +79,14 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// <summary>
 		/// Flip X and Y texture matrix coordinates.
 		/// </summary>
-		public void Normalize() {
+		public ConsoleTexture Normalize() {
 			var buffer = new char[matrix.GetLength(1), matrix.GetLength(0)];
 			for (int y = 0; y < buffer.GetLength(1); y++)
 				for (int x = 0; x < buffer.GetLength(0); x++) {
 					buffer[x, y] = matrix[y, x];
 				}
 			this.matrix = buffer;
+			return this;
 		}
 
 		/// <summary>
@@ -94,11 +95,6 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// <returns>Matrix of symbols</returns>
 		public char[,] GetData() {
 			return this.matrix;
-		}
-
-		private void UpdateSize() {
-			this.Width = this.matrix.GetLength(1);
-			this.Height = this.matrix.GetLength(0);
 		}
 	}
 }
