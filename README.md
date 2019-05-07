@@ -25,9 +25,8 @@ class Game1 : GameCore {
 class Program {
   [STAThread] // That's important
   static void Main(string[] args) {
-    using (var game = new Game1()) {
-      game.Run();
-    }
+    var game = new Game1();
+    game.Run();
   }
 }
 ```
