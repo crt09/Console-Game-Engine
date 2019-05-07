@@ -13,7 +13,7 @@ namespace ConsoleGameEngine.Core {
 	/// The main game engine core.
 	/// Contains initialization, updating and drawing logic.
 	/// </summary>
-	public class Game : IDisposable {
+	public class Game {
 
 		#region Public properties
 
@@ -82,7 +82,7 @@ namespace ConsoleGameEngine.Core {
 
 		#endregion
 
-		#region Private fields
+		#region Private members
 
 		private int previousUpdateTime;
 		private int previousTime;
@@ -91,6 +91,10 @@ namespace ConsoleGameEngine.Core {
 
 		private readonly Timer debugTimer;
 		private int debugFramesCounter;
+
+		private bool IsDebug {
+			get => Debugger.IsAttached;
+		}
 
 		#endregion
 
@@ -110,16 +114,12 @@ namespace ConsoleGameEngine.Core {
 			Graphics = new Renderer();
 
 			previousTime = GetCurrentTimeMilliseconds();
-			if (Debugger.IsAttached) {
+			if (this.IsDebug) {
 				debugTimer = new Timer(1000);
 				debugTimer.Elapsed += this.DebugTimerElapsed;
 				this.DebugTimerTick();
 				debugTimer.Start();
 			}
-		}
-
-		public void Dispose() {
-			this.Exit();
 		}
 
 		#endregion
@@ -134,7 +134,7 @@ namespace ConsoleGameEngine.Core {
 			this.GameRunning = true;
 			this.Initialize();
 
-			while (GameRunning) {
+			while (this.GameRunning) {
 				// calculate delta time
 				int currentTime = GetCurrentTimeMilliseconds();
 				deltaTime = currentTime - previousTime;
@@ -161,7 +161,7 @@ namespace ConsoleGameEngine.Core {
 					this.Update();
 					this.TrimConsoleWindow();
 
-					if (Debugger.IsAttached) {
+					if (this.IsDebug) {
 						debugFramesCounter++;
 					}
 				}
@@ -169,17 +169,24 @@ namespace ConsoleGameEngine.Core {
 				this.Draw();
 				Graphics.RenderMatrix();
 			}
+
+			Console.Clear();
+			if (this.IsDebug) {
+				debugTimer.Stop();
+				debugTimer.Dispose();
+			}
+			Console.CursorVisible = true;
+			Console.Title = Process.GetCurrentProcess().MainModule.FileName;
+
+			GC.Collect(1, GCCollectionMode.Forced);
+			GC.WaitForPendingFinalizers();
 		}
 
 		/// <summary>
-		/// Stop game lyfecycle and cleanup game resources.
+		/// Stop game lyfecycle.
 		/// </summary>
 		public void Exit() {
-			GameRunning = false;
-			Console.Clear();
-			if (Debugger.IsAttached) {
-				debugTimer.Stop();
-			}
+			this.GameRunning = false;
 		}
 
 		#endregion

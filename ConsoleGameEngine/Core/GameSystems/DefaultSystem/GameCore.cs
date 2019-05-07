@@ -19,11 +19,6 @@ namespace ConsoleGameEngine.Core.GameSystems.DefaultSystem {
 			Components = new GameComponentsCollection(this);
 		}
 
-		public new void Dispose() {
-			this.Components.Clear();
-			base.Dispose();
-		}
-
 		/// <inheritdoc />
 		/// <summary>
 		/// Updates all game components.
