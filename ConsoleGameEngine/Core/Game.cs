@@ -54,7 +54,7 @@ namespace ConsoleGameEngine.Core {
 		/// Game matrix size in symbols. Unites game matrix width and height.
 		/// </summary>
 		public Rectangle Bounds {
-			get => new Rectangle(0, 0, Width, Height);
+			get => new Rectangle(0, 0, this.Width, this.Height);
 		}
 
 		#endregion
@@ -92,7 +92,7 @@ namespace ConsoleGameEngine.Core {
 		private readonly Timer debugTimer;
 		private int debugFramesCounter;
 
-		private bool IsDebug {
+		private static bool IsDebug {
 			get => Debugger.IsAttached;
 		}
 
@@ -111,10 +111,10 @@ namespace ConsoleGameEngine.Core {
 			Console.OutputEncoding = Encoding.UTF8;
 
 			Matrix = new char[width, height];
-			Graphics = new Renderer();
+			this.Graphics = new Renderer();
 
-			previousTime = GetCurrentTimeMilliseconds();
-			if (this.IsDebug) {
+			previousTime = this.GetCurrentTimeMilliseconds();
+			if (IsDebug) {
 				debugTimer = new Timer(1000);
 				debugTimer.Elapsed += this.DebugTimerElapsed;
 				this.DebugTimerTick();
@@ -136,7 +136,7 @@ namespace ConsoleGameEngine.Core {
 
 			while (this.GameRunning) {
 				// calculate delta time
-				int currentTime = GetCurrentTimeMilliseconds();
+				int currentTime = this.GetCurrentTimeMilliseconds();
 				deltaTime = currentTime - previousTime;
 				previousTime = currentTime;
 				// accumulate total time
@@ -149,8 +149,8 @@ namespace ConsoleGameEngine.Core {
 					if (deltaTimeAccumulator < 0)
 						deltaTimeAccumulator = 0;
 
-					// calculate udpate delta time
-					int currentUpdateTime = GetCurrentTimeMilliseconds();
+					// calculate update delta time
+					int currentUpdateTime = this.GetCurrentTimeMilliseconds();
 					int updateDeltaTime = currentUpdateTime - previousUpdateTime;
 					if (updateDeltaTime > 0) {
 						DeltaTime.Elapsed = new ElapsedTime(updateDeltaTime);
@@ -161,29 +161,31 @@ namespace ConsoleGameEngine.Core {
 					this.Update();
 					this.TrimConsoleWindow();
 
-					if (this.IsDebug) {
+					if (IsDebug) {
 						debugFramesCounter++;
 					}
 				}
 
 				this.Draw();
-				Graphics.RenderMatrix();
+				this.Graphics.RenderMatrix();
 			}
 
 			Console.Clear();
-			if (this.IsDebug) {
+			if (IsDebug) {
 				debugTimer.Stop();
 				debugTimer.Dispose();
 			}
 			Console.CursorVisible = true;
-			Console.Title = Process.GetCurrentProcess().MainModule.FileName;
+			ProcessModule mainModule = Process.GetCurrentProcess().MainModule;
+			if (mainModule != null)
+				Console.Title = mainModule.FileName;
 
 			GC.Collect(1, GCCollectionMode.Forced);
 			GC.WaitForPendingFinalizers();
 		}
 
 		/// <summary>
-		/// Stop game lyfecycle.
+		/// Stop game lifecycle.
 		/// </summary>
 		public void Exit() {
 			this.GameRunning = false;
@@ -216,7 +218,7 @@ namespace ConsoleGameEngine.Core {
 		#region Additional private methods
 
 		private void TrimConsoleWindow() {
-			int targetWidth = (Graphics.DrawSpaces ? this.Width * 2 : this.Width) + 1;
+			int targetWidth = (this.Graphics.DrawSpaces ? this.Width * 2 : this.Width) + 1;
 			if (Console.WindowWidth != targetWidth) {
 				Console.WindowWidth = targetWidth;
 			}

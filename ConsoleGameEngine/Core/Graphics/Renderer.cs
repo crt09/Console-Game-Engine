@@ -20,9 +20,9 @@ namespace ConsoleGameEngine.Core.Graphics {
 		internal void RenderMatrix() {
 			Console.SetCursorPosition(0, 0);
 			string buffer = string.Empty;
-			for (int y = 0; y < Game.Height; y++) {
-				for (int x = 0; x < Game.Width; x++) {
-					buffer += Game.Matrix[x, y];
+			for (int y = 0; y < this.Game.Height; y++) {
+				for (int x = 0; x < this.Game.Width; x++) {
+					buffer += this.Game.Matrix[x, y];
 					if (this.DrawSpaces) {
 						buffer += ' ';
 					}
@@ -37,9 +37,9 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// </summary>
 		/// <param name="symbol">Symbol to fill the game matrix</param>
 		public void Clear(char symbol) {
-			for (int y = 0; y < Game.Height; y++) {
-				for (int x = 0; x < Game.Width; x++) {
-					Game.Matrix[x, y] = symbol;
+			for (int y = 0; y < this.Game.Height; y++) {
+				for (int x = 0; x < this.Game.Width; x++) {
+					this.Game.Matrix[x, y] = symbol;
 				}
 			}
 		}
@@ -50,9 +50,9 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// <param name="symbol">Symbol of the point to draw</param>
 		/// <param name="position">Position of the point</param>
 		public void Draw(char symbol, Point position) {
-			var gameRect = new Rectangle(0, 0, Game.Width, Game.Height);
+			var gameRect = new Rectangle(0, 0, this.Game.Width, this.Game.Height);
 			if (gameRect.Contains(position) && symbol != ' ') {
-				Game.Matrix[position.X, position.Y] = symbol;
+				this.Game.Matrix[position.X, position.Y] = symbol;
 			}
 		}
 
@@ -77,7 +77,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 		public void Draw(ConsoleTexture texture, Point position) {
 			for (int y = 0; y < texture.Height; y++) {
 				for (int x = 0; x < texture.Width; x++) {
-					var textureMatrix = texture.GetData();
+					char[,] textureMatrix = texture.GetData();
 					var textureMatrixBounds = new Rectangle(0, 0, textureMatrix.GetLength(0), textureMatrix.GetLength(1));
 					if (textureMatrixBounds.Contains(x, y)) {
 						this.Draw(textureMatrix[x, y], new Point(x + position.X, y + position.Y));
@@ -92,7 +92,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// <param name="text">Text to draw</param>
 		/// <param name="position">Position of the text</param>
 		public void DrawString(string text, Point position) {
-			var lines = text.Split('\n');
+			string[] lines = text.Split('\n');
 			for (int y = 0; y < lines.Length; y++) {
 				for (int x = 0; x < lines[y].Length; x++) {
 					this.Draw(lines[y][x], new Point(x + position.X, y + position.Y));

@@ -25,7 +25,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 		private char[,] matrix;
 
 		public ConsoleTexture(int width, int height) {
-			this.matrix = new char[height, width];
+			matrix = new char[height, width];
 		}
 
 		public ConsoleTexture(char[,] data) {
@@ -45,7 +45,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// </summary>
 		/// <param name="data">Matrix of symbols to set</param>
 		public void SetData(char[,] data) {
-			this.matrix = data;
+			matrix = data;
 		}
 
 		/// <summary>
@@ -58,11 +58,11 @@ namespace ConsoleGameEngine.Core.Graphics {
 			for (int row = 0; row < data.Length; row++) {
 				if (row >= matrix.GetLength(0))
 					break;
-				var symbols = data[row].ToCharArray();
+				char[] symbols = data[row].ToCharArray();
 				for (int col = 0; col < symbols.Length; col++) {
 					if (col >= matrix.GetLength(1))
 						break;
-					this.matrix[row, col] = symbols[col];
+					matrix[row, col] = symbols[col];
 				}
 			}
 		}
@@ -85,7 +85,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 				for (int x = 0; x < buffer.GetLength(0); x++) {
 					buffer[x, y] = matrix[y, x];
 				}
-			this.matrix = buffer;
+			matrix = buffer;
 			return this;
 		}
 
@@ -94,7 +94,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// </summary>
 		/// <returns>Matrix of symbols</returns>
 		public char[,] GetData() {
-			return this.matrix;
+			return matrix;
 		}
 	}
 }

@@ -16,25 +16,25 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS.Graphics {
 		/// Sprite bounds relative to the base entity.
 		/// </summary>
 		public Rectangle Bounds {
-			get => new Rectangle(Position.X, Position.Y, Texture.Width, Texture.Height);
+			get => new Rectangle(this.Position.X, this.Position.Y, this.Texture.Width, this.Texture.Height);
 		}
 
 		/// <summary>
 		/// Sprite bounds relative to the scene.
 		/// </summary>
 		public Rectangle AbsoluteBounds {
-			get => new Rectangle(AbsolutePosition.X, AbsolutePosition.Y, Texture.Width, Texture.Height);
+			get => new Rectangle(this.AbsolutePosition.X, this.AbsolutePosition.Y, this.Texture.Width, this.Texture.Height);
 		}
 
-		public Sprite(ConsoleTexture Texture) : base() {
-			this.SetTexture(Texture);
+		public Sprite(ConsoleTexture texture) {
+			this.SetTexture(texture);
 		}
 
-		public Sprite(char symbol) : base() {
+		public Sprite(char symbol) {
 			this.SetTexture(symbol);
 		}
 
-		public Sprite(char symbol, Rectangle rect) : base() {
+		public Sprite(char symbol, Rectangle rect) {
 			this.SetTexture(symbol, rect);
 		}
 
@@ -53,8 +53,8 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS.Graphics {
 		public void SetTexture(char symbol) {
 			var matrix = new char[1, 1];
 			matrix[0, 0] = symbol;
-			Texture = new ConsoleTexture(1, 1);
-			Texture.SetData(matrix);
+			this.Texture = new ConsoleTexture(1, 1);
+			this.Texture.SetData(matrix);
 		}
 
 		/// <summary>
@@ -68,14 +68,15 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS.Graphics {
 				for (int x = 0; x < rect.Width; x++) {
 					matrix[x, y] = symbol;
 				}
-			Texture = new ConsoleTexture(rect.Width, rect.Height);
-			Texture.SetData(matrix);
+
+			this.Texture = new ConsoleTexture(rect.Width, rect.Height);
+			this.Texture.SetData(matrix);
 			Transform.Position = new Point(rect.X, rect.Y);
 		}
 
 		/// <inheritdoc />
 		public override void Draw() {
-			Scene.Game.Graphics.Draw(Texture, new Point(ScreenPosition.X, ScreenPosition.Y));
+			this.Scene.Game.Graphics.Draw(this.Texture, new Point(this.ScreenPosition.X, this.ScreenPosition.Y));
 			base.Draw();
 		}
 	}

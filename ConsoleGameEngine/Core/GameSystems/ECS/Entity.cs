@@ -2,6 +2,7 @@
 using ConsoleGameEngine.Core.GameSystems.ECS.Transformation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ConsoleGameEngine.Core.GameSystems.ECS {
@@ -9,6 +10,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 	/// <summary>
 	/// The entity of the scene which can contains and handles components.
 	/// </summary>
+	[SuppressMessage("ReSharper", "ForCanBeConvertedToForeach")]
 	public class Entity : Transformable {
 
 		/// <summary>
@@ -44,7 +46,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		/// Updates all components of the entity.
 		/// </summary>
 		public virtual void Update() {
-			var componentsBuffer = this.components
+			List<Component> componentsBuffer = components
 				.OrderBy(item => item.UpdateOrder)
 				.ToList();
 			for (int i = 0; i < componentsBuffer.Count; i++) {
@@ -53,7 +55,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		}
 
 		internal void Draw() {
-			var componentsBuffer = this.components
+			List<DrawableComponent> componentsBuffer = components
 				.Where(item => item is DrawableComponent drawableItem && drawableItem.Visible)
 				.Cast<DrawableComponent>()
 				.OrderBy(item => item.DrawOrder)

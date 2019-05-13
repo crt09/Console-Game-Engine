@@ -35,7 +35,7 @@ namespace ConsoleGameEngine.Core.GameSystems.DefaultSystem {
 		public void Add(GameComponent component) {
 			if (component == null)
 				throw new NullReferenceException();
-			if (component.Game != null && component.Game != this.game)
+			if (component.Game != null && component.Game != game)
 				throw new MultipleBaseException(component.ToString(), game.ToString());
 			if (components.Contains(component))
 				throw new MultipleAdditionException(component.ToString(), game.ToString());

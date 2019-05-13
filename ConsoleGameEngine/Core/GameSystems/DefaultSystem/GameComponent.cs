@@ -13,10 +13,10 @@
 		/// <summary>
 		/// Game to which component is attached.
 		/// </summary>
-		protected internal GameCore Game { get; private set; }
+		protected internal GameCore Game { get; }
 
 		/// <param name="game">Game to attach</param>
-		public GameComponent(GameCore game) {
+		protected GameComponent(GameCore game) {
 			this.Game = game;
 		}
 

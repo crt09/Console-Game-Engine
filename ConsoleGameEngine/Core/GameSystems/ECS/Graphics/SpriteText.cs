@@ -12,14 +12,14 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS.Graphics {
 		/// Text bounds relative to the base entity.
 		/// </summary>
 		public Rectangle Bounds {
-			get => new Rectangle(Position.X, Position.Y, Text.Split('\n')[0].Length, Text.Count(c => c == '\n') + 1);
+			get => new Rectangle(this.Position.X, this.Position.Y, this.Text.Split('\n')[0].Length, this.Text.Count(c => c == '\n') + 1);
 		}
 
 		/// <summary>
 		/// Text bounds relative to the scene.
 		/// </summary>
 		public Rectangle AbsoluteBounds {
-			get => new Rectangle(AbsolutePosition.X, AbsolutePosition.Y, Bounds.Width, Bounds.Height);
+			get => new Rectangle(this.AbsolutePosition.X, this.AbsolutePosition.Y, this.Bounds.Width, this.Bounds.Height);
 		}
 
 		/// <summary>
@@ -30,7 +30,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS.Graphics {
 		/// <inheritdoc />
 		public override void Draw() {
 			if (this.Text != null)
-				Scene.Game.Graphics.DrawString(this.Text, ScreenPosition);
+				this.Scene.Game.Graphics.DrawString(this.Text, this.ScreenPosition);
 			base.Draw();
 		}
 	}

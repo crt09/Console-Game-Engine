@@ -3,7 +3,7 @@
 namespace ConsoleGameEngine.Core.GameSystems.ECS.Transformation {
 
 	/// <summary>
-	/// The transormable camera class which contains the camera transform info.
+	/// The transformable camera class which contains the camera transform info.
 	/// </summary>
 	public class Camera : Transformable {
 
@@ -11,9 +11,9 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS.Transformation {
 		/// Camera bounds, relative to the camera transform and the game size.
 		/// </summary>
 		public Rectangle Bounds {
-			get => Scene?.Game != null
-				? new Rectangle(Position.X, Position.Y, Scene.Game.Width, Scene.Game.Height)
-				: new Rectangle(Position.X, Position.Y, 0, 0);
+			get => this.Scene?.Game != null
+				? new Rectangle(this.Position.X, this.Position.Y, this.Scene.Game.Width, this.Scene.Game.Height)
+				: new Rectangle(this.Position.X, this.Position.Y, 0, 0);
 		}
 
 		/// <summary>

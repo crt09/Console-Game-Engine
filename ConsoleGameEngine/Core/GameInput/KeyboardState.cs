@@ -50,11 +50,12 @@ namespace ConsoleGameEngine.Core.GameInput {
 		/// <returns>Copy of the keyboard state</returns>
 		public KeyboardState Clone() {
 			var bufferKeys = new List<Key>();
-			foreach (var key in keys) {
+			foreach (Key key in keys) {
 				bufferKeys.Add(key);
 			}
-			var bufferState = new KeyboardState();
-			bufferState.keys = bufferKeys;
+			var bufferState = new KeyboardState {
+				keys = bufferKeys
+			};
 			return bufferState;
 		}
 	}

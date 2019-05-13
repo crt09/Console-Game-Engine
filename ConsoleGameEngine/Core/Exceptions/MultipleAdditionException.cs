@@ -8,7 +8,7 @@ namespace ConsoleGameEngine.Core.Exceptions {
 	/// </summary>
 	public class MultipleAdditionException : Exception {
 
-		private static string exceptionText { get; set; } = "Cannot add an instance to base multiple times.";
+		private const string exceptionText = "Cannot add an instance to base multiple times.";
 
 		public MultipleAdditionException()
 			: base(exceptionText) { }

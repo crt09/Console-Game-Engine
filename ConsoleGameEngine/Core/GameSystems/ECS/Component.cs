@@ -16,7 +16,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		/// Scene to which the component entity is attached.
 		/// </summary>
 		public Scene Scene {
-			get => Entity?.Scene;
+			get => this.Entity?.Scene;
 		}
 
 		/// <summary>

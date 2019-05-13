@@ -2,6 +2,7 @@
 using ConsoleGameEngine.Core.GameSystems.ECS.Transformation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace ConsoleGameEngine.Core.GameSystems.ECS {
@@ -9,6 +10,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 	/// <summary>
 	/// The game scene which can contains and handles entities.
 	/// </summary>
+	[SuppressMessage("ReSharper", "ForCanBeConvertedToForeach")]
 	public class Scene {
 
 		/// <summary>
@@ -47,7 +49,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		/// Updates all entities on the scene.
 		/// </summary>
 		public virtual void Update() {
-			var entitiesBuffer = this.entities
+			List<Entity> entitiesBuffer = entities
 				.OrderBy(item => item.UpdateOrder)
 				.ToList();
 			for (int i = 0; i < entitiesBuffer.Count; i++) {
@@ -56,7 +58,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		}
 
 		internal void Draw() {
-			var entitiesBuffer = this.entities
+			List<Entity> entitiesBuffer = entities
 				.OrderBy(item => item.DrawOrder)
 				.ToList();
 			for (int i = 0; i < entitiesBuffer.Count; i++) {
@@ -116,7 +118,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		/// Get the first entity of the specified type from the entities list.
 		/// </summary>
 		/// <typeparam name="TEntity">Entity type to get</typeparam>
-		/// <returns>Enity of the specified type if found, otherwise null</returns>
+		/// <returns>Entity of the specified type if found, otherwise null</returns>
 		public TEntity GetEntity<TEntity>() where TEntity : Entity {
 			return entities.FirstOrDefault(item => item is TEntity) as TEntity;
 		}

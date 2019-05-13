@@ -39,14 +39,14 @@
 		/// Returns the coordinates of the center point of the rectangle.
 		/// </summary>
 		public Point Center {
-			get => new Point(X + (Width / 2), Y + (Height / 2));
+			get => new Point(this.X + (this.Width / 2), this.Y + (this.Height / 2));
 		}
 
 		/// <summary>
 		/// Returns the half size of each side of the rectangle.
 		/// </summary>
 		public Point HalfSize {
-			get => new Point(Width / 2, Height / 2);
+			get => new Point(this.Width / 2, this.Height / 2);
 		}
 
 		/// <summary>
@@ -58,7 +58,7 @@
 			return point.X >= this.X
 				&& point.X < this.X + this.Width
 				&& point.Y >= this.Y
-				&& point.Y < Y + this.Height;
+				&& point.Y < this.Y + this.Height;
 		}
 
 		/// <summary>

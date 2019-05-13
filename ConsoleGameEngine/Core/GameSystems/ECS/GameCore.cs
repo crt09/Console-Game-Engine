@@ -44,13 +44,13 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 
 		/// <inheritdoc />
 		protected override void Update() {
-			Scene.Update();
+			this.Scene.Update();
 		}
 
 		/// <inheritdoc />
 		protected sealed override void Draw() {
-			Graphics.Clear(Scene.ClearSymbol);
-			Scene.Draw();
+			this.Graphics.Clear(this.Scene.ClearSymbol);
+			this.Scene.Draw();
 		}
 	}
 }
