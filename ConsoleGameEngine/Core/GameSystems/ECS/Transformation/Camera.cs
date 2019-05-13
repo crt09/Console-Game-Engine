@@ -11,9 +11,9 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS.Transformation {
 		/// Camera bounds, relative to the camera transform and the game size.
 		/// </summary>
 		public Rectangle Bounds {
-			get => this.Scene?.Game != null
-				? new Rectangle(this.Position.X, this.Position.Y, this.Scene.Game.Width, this.Scene.Game.Height)
-				: new Rectangle(this.Position.X, this.Position.Y, 0, 0);
+			get => Scene?.Game != null
+				? new Rectangle(Position.X, Position.Y, Scene.Game.Width, Scene.Game.Height)
+				: new Rectangle(Position.X, Position.Y, 0, 0);
 		}
 
 		/// <summary>
@@ -23,7 +23,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS.Transformation {
 
 		/// <param name="scene">Scene to attach the camera</param>
 		public Camera(Scene scene) {
-			this.Scene = scene;
+			Scene = scene;
 		}
 	}
 }

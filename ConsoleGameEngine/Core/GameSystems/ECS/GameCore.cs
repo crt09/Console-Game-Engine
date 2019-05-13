@@ -26,7 +26,7 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 				if (value == null)
 					throw new NullReferenceException();
 				if (value.Game != null && value.Game != this)
-					throw new MultipleBaseException(value.ToString(), this.ToString());
+					throw new MultipleBaseException(value.ToString(), ToString());
 				value.Game = this;
 				value.Initialize();
 				if (scene != null) {
@@ -39,18 +39,18 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 
 		/// <inheritdoc />
 		public GameCore(int width, int height, string name) : base(width, height, name) {
-			this.Scene = new Scene();
+			Scene = new Scene();
 		}
 
 		/// <inheritdoc />
 		protected override void Update() {
-			this.Scene.Update();
+			Scene.Update();
 		}
 
 		/// <inheritdoc />
 		protected sealed override void Draw() {
-			this.Graphics.Clear(this.Scene.ClearSymbol);
-			this.Scene.Draw();
+			Graphics.Clear(Scene.ClearSymbol);
+			Scene.Draw();
 		}
 	}
 }

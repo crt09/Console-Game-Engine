@@ -82,9 +82,9 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 			if (component == null)
 				throw new ArgumentNullException();
 			if (component.Entity != null && component.Entity != this)
-				throw new MultipleBaseException(component.ToString(), this.ToString());
+				throw new MultipleBaseException(component.ToString(), ToString());
 			if (components.Contains(component))
-				throw new MultipleAdditionException(component.ToString(), this.ToString());
+				throw new MultipleAdditionException(component.ToString(), ToString());
 			component.Entity = this;
 			component.Initialize();
 			components.Add(component);

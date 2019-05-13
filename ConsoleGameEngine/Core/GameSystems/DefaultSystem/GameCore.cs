@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace ConsoleGameEngine.Core.GameSystems.DefaultSystem {
 
@@ -7,6 +9,7 @@ namespace ConsoleGameEngine.Core.GameSystems.DefaultSystem {
 	/// The default game system using the game components which 
 	/// can be updated and drawn (if the game component is drawable).
 	/// </summary>
+	[SuppressMessage("ReSharper", "ForCanBeConvertedToForeach")]
 	public class GameCore : Game {
 
 		/// <summary>
@@ -24,7 +27,7 @@ namespace ConsoleGameEngine.Core.GameSystems.DefaultSystem {
 		/// Updates all game components.
 		/// </summary>
 		protected override void Update() {
-			var componentsBuffer = this.Components
+			var componentsBuffer = Components
 				.ToList()
 				.OrderBy(item => item.UpdateOrder)
 				.ToList();
@@ -38,7 +41,7 @@ namespace ConsoleGameEngine.Core.GameSystems.DefaultSystem {
 		/// Draws all drawable game components.
 		/// </summary>
 		protected override void Draw() {
-			var componentsBuffer = this.Components
+			List<DrawableGameComponent> componentsBuffer = Components
 				.ToList()
 				.Where(item => item is DrawableGameComponent)
 				.Cast<DrawableGameComponent>()

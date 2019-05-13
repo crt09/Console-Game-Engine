@@ -20,10 +20,10 @@ namespace ConsoleGameEngine.Core.Graphics {
 		internal void RenderMatrix() {
 			Console.SetCursorPosition(0, 0);
 			string buffer = string.Empty;
-			for (int y = 0; y < this.Game.Height; y++) {
-				for (int x = 0; x < this.Game.Width; x++) {
-					buffer += this.Game.Matrix[x, y];
-					if (this.DrawSpaces) {
+			for (int y = 0; y < Game.Height; y++) {
+				for (int x = 0; x < Game.Width; x++) {
+					buffer += Game.Matrix[x, y];
+					if (DrawSpaces) {
 						buffer += ' ';
 					}
 				}
@@ -37,9 +37,9 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// </summary>
 		/// <param name="symbol">Symbol to fill the game matrix</param>
 		public void Clear(char symbol) {
-			for (int y = 0; y < this.Game.Height; y++) {
-				for (int x = 0; x < this.Game.Width; x++) {
-					this.Game.Matrix[x, y] = symbol;
+			for (int y = 0; y < Game.Height; y++) {
+				for (int x = 0; x < Game.Width; x++) {
+					Game.Matrix[x, y] = symbol;
 				}
 			}
 		}
@@ -50,9 +50,9 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// <param name="symbol">Symbol of the point to draw</param>
 		/// <param name="position">Position of the point</param>
 		public void Draw(char symbol, Point position) {
-			var gameRect = new Rectangle(0, 0, this.Game.Width, this.Game.Height);
+			var gameRect = new Rectangle(0, 0, Game.Width, Game.Height);
 			if (gameRect.Contains(position) && symbol != ' ') {
-				this.Game.Matrix[position.X, position.Y] = symbol;
+				Game.Matrix[position.X, position.Y] = symbol;
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 		public void Draw(char symbol, Rectangle rect) {
 			for (int y = rect.Y; y < rect.Y + rect.Height; y++) {
 				for (int x = rect.X; x < rect.X + rect.Width; x++) {
-					this.Draw(symbol, new Point(x, y));
+					Draw(symbol, new Point(x, y));
 				}
 			}
 		}
@@ -80,7 +80,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 					char[,] textureMatrix = texture.GetData();
 					var textureMatrixBounds = new Rectangle(0, 0, textureMatrix.GetLength(0), textureMatrix.GetLength(1));
 					if (textureMatrixBounds.Contains(x, y)) {
-						this.Draw(textureMatrix[x, y], new Point(x + position.X, y + position.Y));
+						Draw(textureMatrix[x, y], new Point(x + position.X, y + position.Y));
 					}
 				}
 			}
@@ -95,7 +95,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 			string[] lines = text.Split('\n');
 			for (int y = 0; y < lines.Length; y++) {
 				for (int x = 0; x < lines[y].Length; x++) {
-					this.Draw(lines[y][x], new Point(x + position.X, y + position.Y));
+					Draw(lines[y][x], new Point(x + position.X, y + position.Y));
 				}
 			}
 		}

@@ -22,17 +22,17 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 		/// Component absolute position relative to the camera.
 		/// </summary>
 		public Point ScreenPosition {
-			get => this.Scene != null
-				? this.AbsolutePosition - this.Scene.Camera.Transform.Position
-				: this.AbsolutePosition;
+			get => Scene != null
+				? AbsolutePosition - Scene.Camera.Transform.Position
+				: AbsolutePosition;
 		}
 
 		/// <summary>
 		/// Component position, relative to the scene.
 		/// </summary>
 		public Point AbsolutePosition {
-			get => this.Entity != null
-				? this.Entity.Transform.Position + Transform.Position
+			get => Entity != null
+				? Entity.Transform.Position + Transform.Position
 				: Transform.Position;
 		}
 

@@ -29,15 +29,15 @@ namespace ConsoleGameEngine.Core.Graphics {
 		}
 
 		public ConsoleTexture(char[,] data) {
-			this.SetData(data);
+			SetData(data);
 		}
 
 		public ConsoleTexture(string[] data) {
-			this.SetData(data);
+			SetData(data);
 		}
 
 		public ConsoleTexture(string data) {
-			this.SetData(data);
+			SetData(data);
 		}
 
 		/// <summary>
@@ -73,7 +73,7 @@ namespace ConsoleGameEngine.Core.Graphics {
 		/// </summary>
 		/// <param name="data">String to set</param>
 		public void SetData(string data) {
-			this.SetData(data.Split('\n'));
+			SetData(data.Split('\n'));
 		}
 
 		/// <summary>

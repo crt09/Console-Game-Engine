@@ -15,17 +15,17 @@
 		public int Height { get; set; }
 
 		public Rectangle(int x, int y, int width, int height) {
-			this.X = x;
-			this.Y = y;
-			this.Width = width;
-			this.Height = height;
+			X = x;
+			Y = y;
+			Width = width;
+			Height = height;
 		}
 
 		public Rectangle(Point position, Point size) {
-			this.X = position.X;
-			this.Y = position.Y;
-			this.Width = size.X;
-			this.Height = size.Y;
+			X = position.X;
+			Y = position.Y;
+			Width = size.X;
+			Height = size.Y;
 		}
 
 		/// <summary>
@@ -39,14 +39,14 @@
 		/// Returns the coordinates of the center point of the rectangle.
 		/// </summary>
 		public Point Center {
-			get => new Point(this.X + (this.Width / 2), this.Y + (this.Height / 2));
+			get => new Point(X + (Width / 2), Y + (Height / 2));
 		}
 
 		/// <summary>
 		/// Returns the half size of each side of the rectangle.
 		/// </summary>
 		public Point HalfSize {
-			get => new Point(this.Width / 2, this.Height / 2);
+			get => new Point(Width / 2, Height / 2);
 		}
 
 		/// <summary>
@@ -55,10 +55,10 @@
 		/// <param name="point">Point to check</param>
 		/// <returns>Point is in the rectangle</returns>
 		public bool Contains(Point point) {
-			return point.X >= this.X
-				&& point.X < this.X + this.Width
-				&& point.Y >= this.Y
-				&& point.Y < this.Y + this.Height;
+			return point.X >= X
+				&& point.X < X + Width
+				&& point.Y >= Y
+				&& point.Y < Y + Height;
 		}
 
 		/// <summary>
@@ -68,7 +68,7 @@
 		/// <param name="y">The Y coordinate of the point</param>
 		/// <returns>Point is in the rectangle</returns>
 		public bool Contains(int x, int y) {
-			return this.Contains(new Point(x, y));
+			return Contains(new Point(x, y));
 		}
 
 		/// <summary>
@@ -77,10 +77,10 @@
 		/// <param name="rect">Rectangle to check intersection</param>
 		/// <returns>Rectangles intersects</returns>
 		public bool Intersects(Rectangle rect) {
-			return rect.X + rect.Width > this.X
-				&& rect.X < this.X + this.Width
-				&& rect.Y + rect.Height > this.Y
-				&& rect.Y < this.Y + this.Height;
+			return rect.X + rect.Width > X
+				&& rect.X < X + Width
+				&& rect.Y + rect.Height > Y
+				&& rect.Y < Y + Height;
 		}
 	}
 }

@@ -8,12 +8,12 @@
 		public int Milliseconds { get; set; }
 
 		public double Seconds {
-			get => (double) this.Milliseconds / 1000;
-			set => this.Milliseconds = (int)(value * 1000);
+			get => (double) Milliseconds / 1000;
+			set => Milliseconds = (int)(value * 1000);
 		}
 
 		public ElapsedTime(int milliseconds) {
-			this.Milliseconds = milliseconds;
+			Milliseconds = milliseconds;
 		}
 	}
 }

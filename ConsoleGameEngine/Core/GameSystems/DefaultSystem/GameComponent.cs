@@ -17,7 +17,7 @@
 
 		/// <param name="game">Game to attach</param>
 		protected GameComponent(GameCore game) {
-			this.Game = game;
+			Game = game;
 		}
 
 		/// <summary>

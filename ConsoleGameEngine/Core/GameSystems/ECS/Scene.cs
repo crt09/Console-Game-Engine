@@ -32,9 +32,9 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 
 		/// <param name="clearSymbol">Symbol to clear game the screen</param>
 		public Scene(char clearSymbol = ' ') {
-			this.ClearSymbol = clearSymbol;
+			ClearSymbol = clearSymbol;
 			entities = new List<Entity>();
-			this.Camera = new Camera(this);
+			Camera = new Camera(this);
 		}
 
 		/// <summary>
@@ -83,9 +83,9 @@ namespace ConsoleGameEngine.Core.GameSystems.ECS {
 			if (entity == null)
 				throw new ArgumentNullException();
 			if (entity.Scene != null && entity.Scene != this)
-				throw new MultipleBaseException(entity.ToString(), this.ToString());
+				throw new MultipleBaseException(entity.ToString(), ToString());
 			if (entities.Contains(entity))
-				throw new MultipleAdditionException(entity.ToString(), this.ToString());
+				throw new MultipleAdditionException(entity.ToString(), ToString());
 			entity.Scene = this;
 			entity.Initialize();
 			entities.Add(entity);

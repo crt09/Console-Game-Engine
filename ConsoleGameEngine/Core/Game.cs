@@ -54,7 +54,7 @@ namespace ConsoleGameEngine.Core {
 		/// Game matrix size in symbols. Unites game matrix width and height.
 		/// </summary>
 		public Rectangle Bounds {
-			get => new Rectangle(0, 0, this.Width, this.Height);
+			get => new Rectangle(0, 0, Width, Height);
 		}
 
 		#endregion
@@ -71,7 +71,7 @@ namespace ConsoleGameEngine.Core {
 			get => graphics;
 			set {
 				if (value.Game != null && value.Game != this)
-					throw new MultipleBaseException(value.ToString(), this.ToString());
+					throw new MultipleBaseException(value.ToString(), ToString());
 				value.Game = this;
 				if (graphics != null)
 					graphics.Game = null;
@@ -104,20 +104,20 @@ namespace ConsoleGameEngine.Core {
 		/// <param name="height">Game matrix height in symbols</param>
 		/// <param name="name">Game title, which also sets to console window</param>
 		public Game(int width, int height, string name) {
-			this.Width = width;
-			this.Height = height;
-			this.Title = name;
+			Width = width;
+			Height = height;
+			Title = name;
 			Console.CursorVisible = false;
 			Console.OutputEncoding = Encoding.UTF8;
 
 			Matrix = new char[width, height];
-			this.Graphics = new Renderer();
+			Graphics = new Renderer();
 
-			previousTime = this.GetCurrentTimeMilliseconds();
+			previousTime = GetCurrentTimeMilliseconds();
 			if (IsDebug) {
 				debugTimer = new Timer(1000);
-				debugTimer.Elapsed += this.DebugTimerElapsed;
-				this.DebugTimerTick();
+				debugTimer.Elapsed += DebugTimerElapsed;
+				DebugTimerTick();
 				debugTimer.Start();
 			}
 		}
@@ -131,26 +131,26 @@ namespace ConsoleGameEngine.Core {
 		/// in which the game is updating, drawing and rendering.
 		/// </summary>
 		public void Run() {
-			this.GameRunning = true;
-			this.Initialize();
+			GameRunning = true;
+			Initialize();
 
-			while (this.GameRunning) {
+			while (GameRunning) {
 				// calculate delta time
-				int currentTime = this.GetCurrentTimeMilliseconds();
+				int currentTime = GetCurrentTimeMilliseconds();
 				deltaTime = currentTime - previousTime;
 				previousTime = currentTime;
 				// accumulate total time
 				deltaTimeAccumulator += deltaTime;
 
 				// run game update at the same rate as fps
-				int targetDelay = 1000 / this.TargetFrameRate;
+				int targetDelay = 1000 / TargetFrameRate;
 				while (deltaTimeAccumulator > targetDelay) {
 					deltaTimeAccumulator -= targetDelay;
 					if (deltaTimeAccumulator < 0)
 						deltaTimeAccumulator = 0;
 
 					// calculate update delta time
-					int currentUpdateTime = this.GetCurrentTimeMilliseconds();
+					int currentUpdateTime = GetCurrentTimeMilliseconds();
 					int updateDeltaTime = currentUpdateTime - previousUpdateTime;
 					if (updateDeltaTime > 0) {
 						DeltaTime.Elapsed = new ElapsedTime(updateDeltaTime);
@@ -158,16 +158,16 @@ namespace ConsoleGameEngine.Core {
 					previousUpdateTime = currentUpdateTime;
 
 					Input.Update();
-					this.Update();
-					this.TrimConsoleWindow();
+					Update();
+					TrimConsoleWindow();
 
 					if (IsDebug) {
 						debugFramesCounter++;
 					}
 				}
 
-				this.Draw();
-				this.Graphics.RenderMatrix();
+				Draw();
+				Graphics.RenderMatrix();
 			}
 
 			Console.Clear();
@@ -188,7 +188,7 @@ namespace ConsoleGameEngine.Core {
 		/// Stop game lifecycle.
 		/// </summary>
 		public void Exit() {
-			this.GameRunning = false;
+			GameRunning = false;
 		}
 
 		#endregion
@@ -218,12 +218,12 @@ namespace ConsoleGameEngine.Core {
 		#region Additional private methods
 
 		private void TrimConsoleWindow() {
-			int targetWidth = (this.Graphics.DrawSpaces ? this.Width * 2 : this.Width) + 1;
+			int targetWidth = (Graphics.DrawSpaces ? Width * 2 : Width) + 1;
 			if (Console.WindowWidth != targetWidth) {
 				Console.WindowWidth = targetWidth;
 			}
 
-			int targetHeight = this.Height + 1;
+			int targetHeight = Height + 1;
 			if (Console.WindowHeight != targetHeight) {
 				Console.WindowHeight = targetHeight;
 			}
@@ -234,11 +234,11 @@ namespace ConsoleGameEngine.Core {
 		}
 
 		private void DebugTimerElapsed(object sender, ElapsedEventArgs e) {
-			this.DebugTimerTick();
+			DebugTimerTick();
 		}
 
 		private void DebugTimerTick() {
-			Console.Title = $"{this.Title} - FPS: {debugFramesCounter} - DeltaTime.Milliseconds: {DeltaTime.Elapsed.Milliseconds}";
+			Console.Title = $"{Title} - FPS: {debugFramesCounter} - DeltaTime.Milliseconds: {DeltaTime.Elapsed.Milliseconds}";
 			debugFramesCounter = 0;
 		}
 
